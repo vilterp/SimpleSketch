@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<MenuBar useSystemMenuBar="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.github.vilterp.MenuController">
+  <menus>
+    <Menu mnemonicParsing="false" text="File">
+      <items>
+        <MenuItem mnemonicParsing="false" text="New" fx:id="mItemNew" />
+        <MenuItem mnemonicParsing="false" text="Save" fx:id="mItemSave" />
+        <MenuItem mnemonicParsing="false" text="Open" fx:id="mItemOpen" />
+        <SeparatorMenuItem mnemonicParsing="false" />
+        <MenuItem fx:id="mItemClose" mnemonicParsing="false" text="Close" />
+      </items>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Edit">
+      <items>
+        <MenuItem mnemonicParsing="false" text="Cut" fx:id="mItemCut" />
+        <MenuItem mnemonicParsing="false" text="Copy" fx:id="mItemCopy" />
+        <MenuItem mnemonicParsing="false" text="Paste" fx:id="mItemPaste" />
+        <SeparatorMenuItem mnemonicParsing="false" />
+        <MenuItem mnemonicParsing="false" text="Undo" fx:id="mItemUndo" />
+        <MenuItem mnemonicParsing="false" text="Redo" fx:id="mItemRedo" />
+      </items>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Tool">
+      <items>
+        <MenuItem mnemonicParsing="false" text="Line" fx:id="mItemLine" />
+        <MenuItem mnemonicParsing="false" text="Circle" fx:id="mItemCircle" />
+      </items>
+    </Menu>
+  </menus>
+</MenuBar>

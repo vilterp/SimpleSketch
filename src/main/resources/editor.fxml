@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<fx:root type="javafx.scene.layout.AnchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <center>
+        <SplitPane dividerPositions="0.25" focusTraversable="true" prefHeight="160.0" prefWidth="200.0">
+          <items>
+            <TreeView fx:id="elementTree" editable="true" prefHeight="369.0" prefWidth="127.0" showRoot="false" />
+            <Pane fx:id="drawingPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" />
+          </items>
+        </SplitPane>
+      </center>
+      <top>
+        <ToolBar fx:id="toolbar">
+          <items>
+            <ToggleButton fx:id="mouseButton" mnemonicParsing="false" text="Mouse">
+              <toggleGroup>
+                <ToggleGroup fx:id="toolbarGroup" />
+              </toggleGroup>
+            </ToggleButton>
+            <ToggleButton fx:id="lineButton" mnemonicParsing="false" text="Line" toggleGroup="$toolbarGroup" />
+            <ToggleButton fx:id="circleButton" mnemonicParsing="false" text="Circle" toggleGroup="$toolbarGroup" />
+            <ToggleButton fx:id="rectButton" mnemonicParsing="false" text="Rect" toggleGroup="$toolbarGroup" />
+          </items>
+        </ToolBar>
+      </top>
+    </BorderPane>
+  </children>
+</fx:root>

@@ -1,0 +1,8 @@
+.idea
+*.iml
+out
+*.bak
+src/com/github/vilterp/proto
+project/target
+target
+.history

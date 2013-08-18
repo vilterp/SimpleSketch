@@ -1,0 +1,45 @@
+package com.github.vilterp.proto;
+
+message SketchDocument {
+
+  optional SketchElement root = 2;
+
+}
+
+message SketchElement {
+
+  enum SketchElementType {
+    GROUP = 0;
+    LINE = 1;
+    CIRCLE = 2;
+  }
+  optional SketchElementType type = 1;
+
+  optional LineElement lineElement = 2;
+  optional CircleElement circleElement = 3;
+  optional GroupElement groupElement = 4;
+
+}
+
+message LineElement {
+
+  optional double fromX = 1;
+  optional double fromY = 2;
+  optional double toX = 3;
+  optional double toY = 4;
+
+}
+
+message CircleElement {
+
+  optional double centerX = 1;
+  optional double centerY = 2;
+  optional double radius = 3;
+
+}
+
+message GroupElement {
+
+  repeated SketchElement child = 1;
+
+}
