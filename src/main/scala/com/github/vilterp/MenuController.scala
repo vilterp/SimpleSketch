@@ -5,7 +5,7 @@ import javafx.fxml.{FXMLLoader, Initializable, FXML}
 import javafx.scene.control.{MenuBar, MenuItem}
 import java.net.URL
 import java.util.ResourceBundle
-import javafx.scene.input.{KeyCombination, KeyCharacterCombination}
+import javafx.scene.input.{KeyCodeCombination, KeyCode, KeyCombination, KeyCharacterCombination}
 import javafx.event.{ActionEvent, EventHandler}
 import javafx.beans.value.{ObservableValue, ChangeListener}
 import javafx.stage.Stage
@@ -63,13 +63,14 @@ class MenuController extends Initializable {
   var mItemCircle:MenuItem = null
 
   def initialize(p1: URL, p2: ResourceBundle) {
-    mItemNew.setAccelerator(new KeyCharacterCombination("n", KeyCombination.META_DOWN))
-    mItemSave.setAccelerator(new KeyCharacterCombination("s", KeyCombination.META_DOWN))
-    mItemUndo.setAccelerator(new KeyCharacterCombination("z", KeyCombination.META_DOWN))
-    mItemRedo.setAccelerator(new KeyCharacterCombination("z", KeyCombination.META_DOWN, KeyCombination.SHIFT_DOWN))
-    mItemCopy.setAccelerator(new KeyCharacterCombination("c", KeyCombination.META_DOWN))
-    mItemPaste.setAccelerator(new KeyCharacterCombination("v", KeyCombination.META_DOWN))
-    mItemCut.setAccelerator(new KeyCharacterCombination("x", KeyCombination.META_DOWN))
+    mItemNew.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.META_DOWN))
+    mItemSave.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.META_DOWN))
+    mItemOpen.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.META_DOWN))
+    mItemUndo.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.META_DOWN))
+    mItemRedo.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.META_DOWN, KeyCombination.SHIFT_DOWN))
+    mItemCopy.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.META_DOWN))
+    mItemPaste.setAccelerator(new KeyCodeCombination(KeyCode.V, KeyCombination.META_DOWN))
+    mItemCut.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.META_DOWN))
     // new
     mItemNew.setOnAction(new EventHandler[ActionEvent] {
       def handle(p1: ActionEvent) {
@@ -77,7 +78,6 @@ class MenuController extends Initializable {
       }
     })
     // open
-    mItemOpen.setAccelerator(new KeyCharacterCombination("o", KeyCombination.META_DOWN))
     mItemOpen.setOnAction(new EventHandler[ActionEvent] {
       def handle(evt: ActionEvent) {
         DocumentPromptUtils.promptForOpenPath("Open Sketch",

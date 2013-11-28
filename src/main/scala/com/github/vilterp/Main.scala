@@ -54,7 +54,7 @@ object Main {
 class Main extends Application {
 
   def start(primaryStage:Stage) {
-//    Platform.setImplicitExit(false)
+    Platform.setImplicitExit(false)
     try {
       Main.createWindow(SketchDocument.createEmpty(), primaryStage)
     } catch {
