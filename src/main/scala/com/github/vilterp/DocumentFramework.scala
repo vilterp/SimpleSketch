@@ -5,11 +5,15 @@ import javafx.beans.property.{StringProperty, SimpleObjectProperty, ObjectProper
 import java.util.Date
 import javafx.beans.binding.Bindings
 import javafx.concurrent.{WorkerStateEvent, Task}
-import javafx.event.{EventType, Event, EventHandler}
+import javafx.event.{ActionEvent, EventType, Event, EventHandler}
 import java.util.concurrent.Callable
-import javafx.stage.{Window, FileChooser}
+import javafx.stage.{Modality, Stage, Window, FileChooser}
 import java.io.File
 import javafx.stage.FileChooser.ExtensionFilter
+import javafx.scene.control.{Button, Label}
+import javafx.geometry.Pos
+import javafx.scene.layout.{VBox, HBox}
+import javafx.scene.Scene
 
 object DocumentPromptUtils {
 
@@ -34,6 +38,53 @@ object DocumentPromptUtils {
       case null => None
       case file => Some(file)
     }
+  }
+
+  def showOnCloseDialog(callback:Function1[Boolean,Unit]) {
+    // wtf, why don't dialogs come withthe SDK?
+    // TODO: define this in FXML, make it not look like crap
+    // TODO: move this out to a lib
+    val dialogStage = new Stage()
+    dialogStage.initModality(Modality.WINDOW_MODAL)
+
+    val exitLabel = new Label("This document has unsaved changes.")
+    exitLabel.setAlignment(Pos.BASELINE_CENTER)
+
+    val saveBtn = new Button("Save")
+    saveBtn.setOnAction(new EventHandler[ActionEvent]() {
+      def handle(evt:ActionEvent) {
+        dialogStage.close()
+        callback(true)
+      }
+    })
+
+    val dontSaveButton = new Button("Don't Save")
+    dontSaveButton.setOnAction(new EventHandler[ActionEvent]() {
+      def handle(evt:ActionEvent) {
+        // TODO: don't save
+        dialogStage.close()
+        callback(false)
+      }
+    })
+
+    val cancelBtn = new Button("Cancel")
+    cancelBtn.setOnAction(new EventHandler[ActionEvent] {
+      def handle(evt:ActionEvent) {
+        dialogStage.close()
+      }
+    })
+
+    val hBox = new HBox()
+    hBox.setAlignment(Pos.BASELINE_CENTER)
+    hBox.setSpacing(40.0)
+    hBox.getChildren().addAll(saveBtn, dontSaveButton, cancelBtn)
+
+    val vBox = new VBox()
+    vBox.setSpacing(40.0)
+    vBox.getChildren().addAll(exitLabel, hBox)
+
+    dialogStage.setScene(new Scene(vBox))
+    dialogStage.show()
   }
 
 }

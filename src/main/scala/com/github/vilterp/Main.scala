@@ -42,8 +42,8 @@ object Main {
     // close button
     stage.setOnCloseRequest(new EventHandler[WindowEvent] {
       def handle(evt: WindowEvent) {
-        // TODO: prompt on close
-        println("close...")
+        evt.consume()
+        editorController.onCloseRequest()
       }
     })
     stage.show()

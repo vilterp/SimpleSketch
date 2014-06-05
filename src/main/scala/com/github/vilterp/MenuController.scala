@@ -94,7 +94,7 @@ class MenuController extends Initializable {
     mItemClose.setAccelerator(new KeyCharacterCombination("w", KeyCombination.META_DOWN))
     mItemClose.setOnAction(new EventHandler[ActionEvent] {
       def handle(p1: ActionEvent) {
-        println("command-w pressed...")
+        editorController.get().onCloseRequest()
       }
     })
     // Tool
@@ -118,7 +118,7 @@ class MenuController extends Initializable {
         mItemSave.disableProperty().bind(document.isDirty.not())
         mItemSave.setOnAction(new EventHandler[ActionEvent] {
           def handle(p1: ActionEvent) {
-            document.save(DocumentPromptUtils.promptForSavePath(editorController.get().window, "Save Sketch"))
+            document.save(editorController.get().promptForSave)
           }
         })
         // undo

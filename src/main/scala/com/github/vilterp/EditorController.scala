@@ -17,6 +17,7 @@ import javafx.collections.ListChangeListener.Change
 import javafx.util.Callback
 import javafx.stage.{Stage, Window}
 import javafx.beans.value.{ObservableValue, ChangeListener}
+import javafx.application.Platform
 
 object Tool extends Enumeration {
   type Tool = Value
@@ -31,12 +32,14 @@ object EditorController {
                                    "circleButton" -> CIRCLE,
                                    "rectButton" -> RECT)
   val toolsReversed:Map[Tool,String] = tools.map(_.swap)
-
+  
 }
 
-class EditorController(val document:SketchDocument, val window:Stage) extends AnchorPane {
+class EditorController(val document:SketchDocument, val stage:Stage) extends AnchorPane {
 
   val logger = Logger.getLogger(classOf[EditorController].getName)
+
+  val promptForSave = DocumentPromptUtils.promptForSavePath(stage, "Save Sketch")
 
   @FXML
   var mouseButton:ToggleButton = null
@@ -75,6 +78,7 @@ class EditorController(val document:SketchDocument, val window:Stage) extends An
     // the loader should do this for you
     assert(toolbar != null)
     assert(toolbarGroup != null)
+
     // bind currentTool to selected button
     // currentTool.bind(
     //   Bindings.createObjectBinding[Tool](new Callable[Tool] {
@@ -103,6 +107,26 @@ class EditorController(val document:SketchDocument, val window:Stage) extends An
     bindModelToCanvas()
     setupKeybindings()
     setupUndo()
+
+    // because this makes total sense...
+    Platform.runLater(new Runnable {
+      def run() {
+        drawingPane.requestFocus()
+      }
+    })
+  }
+  
+  def onCloseRequest() {
+    if(document.isDirty.get()) {
+      DocumentPromptUtils.showOnCloseDialog((save) => {
+        if(save) {
+          document.save(promptForSave)
+        }
+        stage.close()
+      })
+    } else {
+      stage.close()
+    }
   }
 
   private def setupMouse() {
